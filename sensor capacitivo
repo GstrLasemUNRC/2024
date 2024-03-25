@@ -1,4 +1,5 @@
 //Codigo para el sensor capacitivo de proximidad
+// gnd de lolin con gnd de sensor. 5v de lolin con vcc del sensor. pin 2 de lolin con s del sensor 
 
 #define PINSENSOR 2
 
