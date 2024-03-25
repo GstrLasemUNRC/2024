@@ -1,0 +1,26 @@
+//Codigo para el sensor capacitivo de proximidad
+
+#define PINSENSOR 2
+
+int F_Estado(int pin){
+    return digitalRead(pin);
+}
+
+void F_Comunicacion (int Estado){
+     if(Estado){
+                        Serial.print( "Deteccion");
+     }else{
+            Serial.print("NO DETECCION");
+     }
+     Serial.println();
+}
+
+void setup(){
+    Serial.begin(9600);
+    pinMode(PINSENSOR, INPUT);
+}
+void loop(){
+    int estadoSensor=F_Estado(PINSENSOR);
+    F_Comunicacion(estadoSensor);
+    delay(500);
+}
