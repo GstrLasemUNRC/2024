@@ -25,3 +25,9 @@ El  modulo RFID es el encargado de  realizar la lectura y grabacion de los codig
 - Llaveros RFID  
 
 Se utiliza el modulo NFC para  realizar lecturas y escrituras, ya que es compatible con la tecnología RFID. 
+
+**Conexion del modulo**
+
+**Codigo para la lectura**
+
+c++: [ReadTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/ReadTag.ino)    
