@@ -6,8 +6,6 @@ También incorpora funciones avanzadas, como alarmas que alertan cuando un anima
 Se empleará un sistema de visualización y gestión de datos. Esto garantizará la accesibilidad y la flexibilidad en la administración de la información.
 Este sistema RFID no solo simplifica la identificación y seguimiento de animales, sino que también mejora la atención y el cuidado de los mismos en refugios y hogares, contribuyendo así al bienestar de los animales y a una gestión más eficiente de las instalaciones.
 
-### Requerimientos
-
 ### Diseño del sistema
 El sistema cuenta con tres partes fundamentales :
 - Modulo RFID (permite leer y grabar los códigos RFID).
@@ -27,6 +25,19 @@ El  modulo RFID es el encargado de  realizar la lectura y grabacion de los codig
 Se utiliza el modulo NFC para  realizar lecturas y escrituras, ya que es compatible con la tecnología RFID. 
 
 **Conexion del modulo**
+
+Se opta por una conexion I2C con ardiono nano.
+
+Tabla  de pinout:
+|Arduino |NFC      |
+|--------|---------|
+|GND      |GND     |
+|5V       |VCC     |
+|SDA (A4) |TX      |
+|SCL (A5) |RX      |
+
+- La comunicacion I2C funciona de 3.3V a 24V TTL.
+
 
 **Codigo para la lectura**
 
