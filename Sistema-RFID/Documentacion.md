@@ -38,14 +38,35 @@ Tabla  de pinout:
 
 La comunicacion I2C funciona de 3.3V a 24V TTL.
 
-**Codigo para formatear**
+**Formato NDEF**
+
+El formato NDEF (NFC Data Exchange Format) es un estándar utilizado en la tecnología NFC (Near Field Communication) para intercambiar datos entre dispositivos compatibles con NFC, como teléfonos inteligentes, tarjetas NFC y lectores NFC.
+
+Los elementos principales del formato NDEF:
+
+- Mensaje NDEF (NDEF Message): Es la unidad básica de datos en el formato NDEF. Un mensaje NDEF puede contener uno o más registros NDEF.
+
+- Registro NDEF (NDEF Record): Es una estructura de datos que contiene información específica. Cada registro NDEF consta de varios campos:
+- - TNF (Type Name Format): Especifica el formato del tipo de registro.
+- - Tipo (Type): Indica el tipo de datos contenidos en el registro.
+- - ID: Identificador opcional para el registro.
+- - Carga útil (Payload): Los datos reales que se transfieren entre dispositivos NFC.  
+- Tipos de registros NDEF comunes:
+- - Well Known (Conocido): Utilizado para tipos de registros ampliamente conocidos, como texto, URI (Identificador de Recurso Uniforme) y MIME.
+- - URI (Identificador de Recurso Uniforme): Contiene una URL.
+- - Texto: Contiene texto legible por humanos, junto con un código de idioma.
+- - MIME (Multipurpose Internet Mail Extensions): Utilizado para tipos de datos específicos, como imágenes, audio y video.
+
+En este proyecto, se opta por utilizar el formato NDEF para la escritura en las tarjetas RFID. Los registros NDEF de tipo texto se utilizan para almacenar información relacionada con los animales, como su identificación y detalles relevantes.
+
+**Codigo para formatear tarjeta**
 
 c++: [FormatTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/FormatTag.ino)    
 
-**Codigo para la lectura**
+**Codigo para la lectura de la tarjeta**
 
 c++: [ReadTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/ReadTag.ino)    
 
-**Codigo para grabar**
+**Codigo para grabar tarjeta**
 
 c++: [WriteTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteTag.ino)    
