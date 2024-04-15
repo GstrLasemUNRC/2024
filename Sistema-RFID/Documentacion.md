@@ -38,7 +38,14 @@ Tabla  de pinout:
 
 La comunicacion I2C funciona de 3.3V a 24V TTL.
 
+**Codigo para formatear**
+
+c++: [FormatTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/FormatTag.ino)    
 
 **Codigo para la lectura**
 
 c++: [ReadTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/ReadTag.ino)    
+
+**Codigo para grabar**
+
+c++: [WriteTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteTag.ino)    
