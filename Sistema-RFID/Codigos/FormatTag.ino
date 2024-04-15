@@ -1,16 +1,6 @@
-// Formats a Mifare Classic tags as an NDEF tag
-// This will fail if the tag is already formatted NDEF
-// nfc.clean will turn a NDEF formatted Mifare Classic tag back to the Mifare Classic format
-
-#if 0
-#include <SPI.h>
-#include <PN532_SPI.h>
-#include <PN532.h>
-#include <NfcAdapter.h>
-
-PN532_SPI pn532spi(SPI, 10);
-NfcAdapter nfc = NfcAdapter(pn532spi);
-#else
+// Formatea las etiquetas Mifare Classic como una etiqueta NDEF
+// Esto fallará si la etiqueta ya está formateada como NDEF
+// nfc.clean convertirá una etiqueta Mifare Classic formateada como NDEF al formato Mifare Classic
 
 #include <Wire.h>
 #include <PN532_I2C.h>
@@ -19,24 +9,23 @@ NfcAdapter nfc = NfcAdapter(pn532spi);
 
 PN532_I2C pn532_i2c(Wire);
 NfcAdapter nfc = NfcAdapter(pn532_i2c);
-#endif
 
 void setup(void) {
     Serial.begin(9600);
-    Serial.println("NDEF Formatter");
+    Serial.println("Formateador NDEF");
     nfc.begin();
 }
 
 void loop(void) {
     
-    Serial.println("\nPlace an unformatted Mifare Classic tag on the reader.");
+    Serial.println("\nColoque una etiqueta Mifare Classic no formateada en el lector.");
     if (nfc.tagPresent()) {
 
         bool success = nfc.format();
         if (success) {
-          Serial.println("\nSuccess, tag formatted as NDEF.");
+          Serial.println("\nÉxito, etiqueta formateada como NDEF.");
         } else {
-          Serial.println("\nFormat failed.");
+          Serial.println("\nFalló el formato.");
         }
 
     }
