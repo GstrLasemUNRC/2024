@@ -17,7 +17,7 @@ El sistema cuenta con tres partes fundamentales :
 
 #### Modulo RFID
 
-El  modulo RFID es el encargado de  realizar la lectura y grabacion de los codigos RFID. Los elementos escensiales son:
+El  modulo RFID es el encargado de  realizar la lectura y grabacion de los codigos RFID. Los elementos esenciales son:
 - Modulo NFC
 - Arduino Nano
 - Llaveros RFID  
@@ -36,7 +36,7 @@ Tabla  de pinout:
 |SDA (A4) |TX      |
 |SCL (A5) |RX      |
 
-- La comunicacion I2C funciona de 3.3V a 24V TTL.
+La comunicacion I2C funciona de 3.3V a 24V TTL.
 
 
 **Codigo para la lectura**
