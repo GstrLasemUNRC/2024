@@ -70,3 +70,7 @@ c++: [ReadTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/
 **Codigo para grabar tarjeta**
 
 c++: [WriteTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteTag.ino)    
+
+
+**Google Sheet**
+https://www.gsampallo.com/2019/10/22/esp8266-y-google-spreadsheets/ 
