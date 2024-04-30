@@ -83,9 +83,13 @@ Pasos  para integrar ESP8266 y Google Spreadsheets:
 4. Copiar el código modificarHoja.gs y pegarlo en el editor de scripts: Código.gs.
 5. Establecer permisos y accesos sobre el script. Ingresar a Implementar → Nueva implementación → Aplicación Web. Debemos elegir que se ejecute como nuestro usuario y que cualquier persona incluso los anónimos tengan acceso a la aplicación; luego confirmamos las opciones que se nos presenta.
 
-Id de implementación: AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ
+>Id de implementación: AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ
 
-Aplicación web URL
+>Aplicación web URL
 https://script.google.com/macros/s/AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ/exec 
 
 6. en el variable script reemplazamos XXXXXXXXXXXXXXXXXXXXX por la correspondiente que nos otorgo Google Script.
+
+**Codigo para escribir datos a Google Sheets**
+
+c++: [WriteSheets.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteTag.ino) 
