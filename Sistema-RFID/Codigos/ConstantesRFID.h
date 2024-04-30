@@ -1,8 +1,8 @@
 
 // RED WIFI
 // credenciales
-const char* ssid     = "2.4GHz_EXT_Lu";
-const char* password = "3B77A4D830";
+const char* ssid     = "";
+const char* password = "";
 
 // Google Script Deployment ID:
 const char *GScriptId = "AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ";
