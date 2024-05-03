@@ -30,6 +30,9 @@ Se utiliza el módulo NFC para  realizar lecturas y escrituras, ya que es compat
 2. Acceder a la hoja de datos de Google.
 3. Comparar el UID  de la tarjeta leida con el almacenado en la base de datos.
 4. Mostrar en la pantalla OLED los datos escenciales si hay coincidencia. De lo contrario solo mostrar el UID de la tarjeta leida.
+5. Si coincide, extraer los datos de las celdas que contengas el nombre y edad del animal.
+6. Guardar estos datos en una variable temporal.
+7. Mostrar por pantalla los datos del animal.
 
 #### Implementación del módulo RFID
 **Conexion del módulo**
@@ -65,12 +68,11 @@ Pasos  para integrar ESP8266 y Google Spreadsheets:
 4. Copiar el código leerHoja.gs y pegarlo en el editor de scripts: Código.gs.
 5. Establecer permisos y accesos sobre el script. Ingresar a Implementar → Nueva implementación → Aplicación Web. Debemos elegir que se ejecute como nuestro usuario y que cualquier persona incluso los anónimos tengan acceso a la aplicación; luego confirmamos las opciones que se nos presenta.
 
->Id de implementación: AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ
+>Id de implementación: AKfycbw1-kF0LZHfgsDMbRvofVdkw2akuNpwD3DwXVGRKpKFXBqnbYCkQFu48HjDpFIOplFCSg
 
 >Aplicación web URL
-https://script.google.com/macros/s/AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ/exec 
-v2:
-https://script.google.com/macros/s/AKfycbyDBhZ5k8jpslE58SScIxL-gU20A18lDLkyJKnQT7MKRLfXSH40ranEPfTZXVGIeFbsvA/exec 
+https://script.google.com/macros/s/AKfycbw1-kF0LZHfgsDMbRvofVdkw2akuNpwD3DwXVGRKpKFXBqnbYCkQFu48HjDpFIOplFCSg/exec 
+
 
 6. en el variable script .ino reemplazamos XXXXXXXXXXXXXXXXXXXXX por la correspondiente que nos otorgo Google Script.
 
@@ -84,9 +86,11 @@ c++: [ReadSheets.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RF
 
 c++: [proyectoRFID.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/proyectoRFID.ino) 
 
+## Resultados
 
+En la siguiente imagen se observa en el monitor serial el proceso de conexión a la red WiFi, seguido por la interacción con una tarjeta RFID y la comunicación con el servidor de Google Sheets. Como en este ejemplo que unserto una tarjeta que coincide su UID con el de la base de datos, se extrae tanto el nombre como la edad asociados a esa coincidencia.
 
-
+![Imagen 0](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Documentacion.md/Imagenes/imagen_0.png)
 
 
 
