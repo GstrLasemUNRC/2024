@@ -6,25 +6,33 @@ También incorpora funciones avanzadas, como alarmas que alertan cuando un anima
 Se empleará un sistema de visualización y gestión de datos. Esto garantizará la accesibilidad y la flexibilidad en la administración de la información.
 Este sistema RFID no solo simplifica la identificación y seguimiento de animales, sino que también mejora la atención y el cuidado de los mismos en refugios y hogares, contribuyendo así al bienestar de los animales y a una gestión más eficiente de las instalaciones.
 
-### Diseño del sistema
+## Diseño del sistema
 El sistema cuenta con tres partes fundamentales :
-- Modulo RFID (permite leer y grabar los códigos RFID).
+- módulo RFID (permite leer y grabar los códigos RFID).
 - Base de datos (base de datos en donde se guardarán todos los registros de las identidades de los animales).
 - Aplicación Web (aplicación que permite a los usuarios verificar si un animal está registrado o no, así como realizar el registro y monitoreo de la información).
 
 
-### Desarrollo de Prototipo
+## Desarrollo de Prototipo
 
-#### Modulo RFID
+### Módulo RFID
 
-El  modulo RFID es el encargado de  realizar la lectura y grabacion de los codigos RFID. Los elementos esenciales son:
-- Modulo NFC
+El  módulo RFID es el encargado de  realizar la lectura y grabacion de los codigos RFID. Los elementos esenciales son:
+- módulo NFC
 - Lolin wemos D1 mini pro
 - Llaveros RFID  
 
-Se utiliza el modulo NFC para  realizar lecturas y escrituras, ya que es compatible con la tecnología RFID. 
+Se utiliza el módulo NFC para  realizar lecturas y escrituras, ya que es compatible con la tecnología RFID. 
 
-**Conexion del modulo**
+**Funcionamiento del módulo RFID**
+
+1. Leer la tarjeta RFID.
+2. Acceder a la hoja de datos de Google.
+3. Comparar el UID  de la tarjeta leida con el almacenado en la base de datos.
+4. Mostrar en la pantalla OLED los datos escenciales si hay coincidencia. De lo contrario solo mostrar el UID de la tarjeta leida.
+
+#### Implementación del módulo RFID
+**Conexion del módulo**
 
 Se opta por una conexion I2C con Lolin wemos D1 mini pro.
 
@@ -37,6 +45,56 @@ Tabla  de pinout:
 |SCL (GPIO 5) |RX      |
 
 La comunicacion I2C funciona de 3.3V a 24V TTL.
+
+**Programación del módulo RFID**
+
+Se procede  a programar el microcontrolador ESP8266 utilizando Arduino IDE. Se instalan las librerias  necesarias para trabajar y se incluyen en los scripts correspondientes.   
+
+Se inicia con la conexión a la red WiFi, seguido de la conexión al módulo PN532 para la interfaz I2C y la lectura del UID de las tarjetas. Luego se procede a conectarse a la base de datos de Google Sheets.  Esto se realiza para enviar una solicitud HTTP a tu script de Google Apps Script para obtener los datos de la hoja de cálculo que contienen los UIDtag.
+
+**Codigo para la lectura del UID de la tarjeta RFID**
+
+c++: [ReadUIDtag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/ReadUIDtag.ino) 
+
+**Conexión con Google Sheet**
+
+Pasos  para integrar ESP8266 y Google Spreadsheets:
+1. Crear o buscar una hoja de cálculo en Google Drive.
+2. Extensiones → App Script.
+3. Nombrar el proyecto "leerHoja"
+4. Copiar el código leerHoja.gs y pegarlo en el editor de scripts: Código.gs.
+5. Establecer permisos y accesos sobre el script. Ingresar a Implementar → Nueva implementación → Aplicación Web. Debemos elegir que se ejecute como nuestro usuario y que cualquier persona incluso los anónimos tengan acceso a la aplicación; luego confirmamos las opciones que se nos presenta.
+
+>Id de implementación: AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ
+
+>Aplicación web URL
+https://script.google.com/macros/s/AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ/exec 
+v2:
+https://script.google.com/macros/s/AKfycbyDBhZ5k8jpslE58SScIxL-gU20A18lDLkyJKnQT7MKRLfXSH40ranEPfTZXVGIeFbsvA/exec 
+
+6. en el variable script .ino reemplazamos XXXXXXXXXXXXXXXXXXXXX por la correspondiente que nos otorgo Google Script.
+
+**Codigo para leer datos en Google Sheets**
+
+c++: [ReadSheets.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/ReadSheets.ino) 
+
+
+
+**Codigo general del módulo RFID**
+
+c++: [proyectoRFID.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/proyectoRFID.ino) 
+
+
+
+
+
+
+
+
+
+
+
+## ANEXO
 
 **Formato NDEF**
 
@@ -59,37 +117,36 @@ Los elementos principales del formato NDEF:
 
 En este proyecto, se opta por utilizar el formato NDEF para la escritura en las tarjetas RFID. Los registros NDEF de tipo texto se utilizan para almacenar información relacionada con los animales, como su identificación y detalles relevantes.
 
-**Codigo para formatear tarjeta**
+**Codigo para formatear tarjeta RFID**
 
 c++: [FormatTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/FormatTag.ino)    
 
-**Codigo para la lectura de la tarjeta**
+**Codigo para la lectura de la tarjeta RFID**
 
 c++: [ReadTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/ReadTag.ino)    
 
-**Codigo para grabar tarjeta**
+**Codigo para grabar tarjeta RFID**
 
-c++: [WriteTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteTag.ino)    
-
-
-**Google Sheet**
-
-https://www.gsampallo.com/2019/10/22/esp8266-y-google-spreadsheets/ 
-
-Pasos  para integrar ESP8266 y Google Spreadsheets:
-1. Crear o buscar una hoja de cálculo en Google Drive.
-2. Extensiones → App Script.
-3. Nombrar el proyecto "modificarHoja"
-4. Copiar el código modificarHoja.gs y pegarlo en el editor de scripts: Código.gs.
-5. Establecer permisos y accesos sobre el script. Ingresar a Implementar → Nueva implementación → Aplicación Web. Debemos elegir que se ejecute como nuestro usuario y que cualquier persona incluso los anónimos tengan acceso a la aplicación; luego confirmamos las opciones que se nos presenta.
-
->Id de implementación: AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ
-
->Aplicación web URL
-https://script.google.com/macros/s/AKfycbzlKrX1HpVaIELflssnzJEMn0PbvIMzhorwMtnpKtn9bTy-zBl-2_3fMXCHOHWGQZxVDQ/exec 
-
-6. en el variable script reemplazamos XXXXXXXXXXXXXXXXXXXXX por la correspondiente que nos otorgo Google Script.
+c++: [WriteTag.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteTag.ino)  
 
 **Codigo para escribir datos a Google Sheets**
 
-c++: [WriteSheets.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteTag.ino) 
+c++: [WriteSheets.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/WriteSheets.ino) 
+
+junto con el codigo modificarHoja.gs
+
+Notas: 
+POST: Se utiliza para enviar el UID de la tarjeta RFID desde el dispositivo Arduino al script de Google Apps Script para que se pueda comparar con los datos almacenados en Google Sheets.  En una solicitud POST, los datos se envían al servidor en el cuerpo del mensaje HTTP. Esto significa que los datos se envían de manera "oculta" al usuario, ya que no aparecen en la URL.  
+GET: Es opcional y se puede utilizar para recuperar todos los datos de la hoja de cálculo como respuesta a una solicitud GET. En este caso, se puede usar para obtener los datos de la hoja de cálculo si fuese necesario procesarlos en el Arduino. En una solicitud GET, los datos se envían al servidor a través de la URL como parámetros de consulta. Estos parámetros son visibles en la barra de direcciones del navegador.
+
+
+
+
+
+
+
+## Bibliografía
+
+**Google Sheet**  
+https://www.gsampallo.com/2019/10/22/esp8266-y-google-spreadsheets/   
+https://github.com/StorageB/Google-Sheets-Logging 
