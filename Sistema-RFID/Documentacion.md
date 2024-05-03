@@ -80,6 +80,14 @@ https://script.google.com/macros/s/AKfycbw1-kF0LZHfgsDMbRvofVdkw2akuNpwD3DwXVGRK
 
 c++: [ReadSheets.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/ReadSheets.ino) 
 
+**Codigo para mostrar datos en la pantalla OLED**
+Nota: La función debe respetar el ingreso de los siguientes argumentos.
+
+void mostrar_datos(String uidString, String Nombre, String Edad) { }
+
+
+c++: [pantallaOLED.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/pantallaOLED.ino) 
+
 
 
 **Codigo general del módulo RFID**
