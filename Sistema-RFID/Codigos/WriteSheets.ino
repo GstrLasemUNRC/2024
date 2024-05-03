@@ -5,6 +5,10 @@
 #include "ConstantesRFID.h"
 #include "funcionesRFID.h"
 
+//variables publicadas en Google Sheets
+int value0 = 0;
+int value1 = 0;
+int value2 = 0;
 
 void setup() {
 
@@ -33,7 +37,7 @@ void loop() {
   snprintf(payload, sizeof(payload), "%s\"%d\",\"%d\",\"%d\"}", payload_base, value0, value1, value2); //  "%s\"%d,%d,%d\"}"
   
   // Publicacion de datos en Google Sheets
-  Serial.println("Puublicando datos...");
+  Serial.println("Publicando datos...");
   Serial.println(payload);
   if(client->POST(url, host, payload)){ 
     // si la publicación fue exitosa ...
