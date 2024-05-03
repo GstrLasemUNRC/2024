@@ -1,4 +1,3 @@
- 
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_PN532.h>
@@ -23,15 +22,27 @@ void setup() {
   config_moduloNFC();
   // Conexion con Google Sheets
   config_google();
-  
-
 
 }
 
 
 void loop() {
-  // lee el UID y almacena los primeros 4 bytes es una variable uint8_t firstFourBytes[NUM_BYTES_TO_COPY]  
-  leerUIDTarjetaRFID();
-
+  // Leer UID de la tarjeta RFID
+  String uidString = leerUIDTarjetaRFID();
+  Serial.println("UIDleido: ");
+  Serial.println(uidString);
+  
+  // Leer Sheets y buscar una coincidencia en la columna UIDtag
+  leer_columnaUIDtag(uidString);
+  
+  // Leer en una celda puntual
+  
+  leer_sheet(fila, Nombredog);
+  Serial.println("Nombre: ");
+  Serial.println(valorLeido);
+  
+  leer_sheet(fila, Edaddog);
+  Serial.println("Edad (Años): ");
+  Serial.println(valorLeido);
 
 }
