@@ -6,10 +6,13 @@
 void config_wifi();
 void config_google();
 void config_moduloNFC();
-void leerUIDTarjetaRFID();
+String leerUIDTarjetaRFID();
+void leer_columnaUIDtag(String uidString);
+void leer_sheet(int rowIndex, int colIndex) ;
 
 
-// Funcion: Configuracion de la conexion WiFi
+
+// Funcion 1: Configuracion de la conexion WiFi
 void config_wifi(){
   delay(10);
   WiFi.begin(ssid, password);
@@ -25,7 +28,7 @@ void config_wifi(){
   Serial.println(WiFi.localIP());
 }
 
-// Funcion: Configuracion de la conexion con el modulo NFC PN532
+// Funcion 2: Configuracion de la conexion con el modulo NFC PN532
 // Inicializa el módulo PN532 para la interfaz I2C
 Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 void config_moduloNFC(){
@@ -45,13 +48,14 @@ void config_moduloNFC(){
 
 }
 
-// Funcion: media
+// Funcion 3: media
 uint8_t customMin(uint8_t a, uint8_t b) {
   return a < b ? a : b;
 }
 
-// Funcion: Lectura del UID de las tarjetas con el modulo NFC PN532
-void leerUIDTarjetaRFID(){
+// Funcion 4: Lectura del UID de las tarjetas con el modulo NFC PN532
+String leerUIDTarjetaRFID(){
+  String uidString = ""; // Inicializa un String vacío para almacenar el UID
   
   uint8_t success;
   uidLength = sizeof(uid); // Inicializa la longitud del UID
@@ -64,18 +68,23 @@ void leerUIDTarjetaRFID(){
     //Serial.print("UID Length: "); Serial.print(uidLength, DEC); Serial.println(" bytes");
     Serial.print("UID Value (first 4 bytes): ");
     for (uint8_t i = 0; i < customMin(uidLength, NUM_BYTES_TO_COPY); i++) {
-      firstFourBytes[i] = uid[i];
-      Serial.print(firstFourBytes[i], HEX); // Imprimir el byte en hexadecimal
+      //firstFourBytes[i] = uid[i];
+      Serial.print(uid[i], HEX); // Imprimir el byte en hexadecimal
       Serial.print(" ");
+
+      uidString += String(uid[i], HEX); // Agrega cada byte del UID al String
+      //uidString += String(uid[i]);
+      uidString += "";
     }
     Serial.println("");
-
     delay(500); // Espera medio segundo antes de leer la próxima tarjeta
   }
 
+  return uidString; // Devuelve el String con el UID leído
+
 }
 
-// Funcion: Configuración para establecer conexión con Google Sheets.
+// Funcion 5: Configuración para establecer conexión con Google Sheets.
 void config_google(){
     // establecer una conexión HTTPS con el servidor de Google Sheets.
   client = new HTTPSRedirect(httpsPort);
@@ -107,8 +116,73 @@ void config_google(){
 }
 
 
+// Funcion 6: leer la hoja de datos y buscar coincidencia en la columna UIDtag. Solicitud POST.
+void leer_columnaUIDtag(String uidString){
+
+  // Realizar una solicitud HTTP POST al script de Google Apps Script.
+  String url = String("/macros/s/") + GScriptId + "/exec"; 
+
+  // Crear el cuerpo de la solicitud POST
+  String postData = "uid=" + uidString;
+
+  // Realizar la solicitud POST
+  client->POST(url, host, postData);
+
+  // Leer y procesar la respuesta recibida.
+  String response = client->getResponseBody();
+  // Serial.println("Respuesta del servidor: ");
+  // Serial.println(response);
+
+  if (response.indexOf(uidString) != -1) {
+    Serial.println("El string coincide con los datos de la columna 'UIDtag'");
+
+    // Encontrar la posición de uidString en response
+    int index = response.indexOf(uidString);
+
+    // Analizar la estructura de la matriz para determinar la fila correspondiente
+    int rowCount = 0;
+    int pos = 0;
+    while (pos != -1 && pos < index) {
+      pos = response.indexOf("[", pos + 1);
+      rowCount++;
+    }
+    int row = rowCount - 1; // Restar 1 para obtener el índice de la fila correcto
+
+    // Imprimir la fila correspondiente
+    Serial.print("La coincidencia se encuentra en la fila: ");
+    Serial.println(row);
+    fila=row; // variable utilizada en la funcion leer_sheet
+
+  } else {
+    Serial.println("El string no coincide con los datos de la columna 'UIDtag'");
+  }
+
+  uidString = ""; 
+}
 
 
+// Funcion 7: Leer en una celda puntual. Se le ingresa la fila donde se encontró la coincidencia del UID. Solicitud GET.
+void leer_sheet(int rowIndex, int colIndex) {
+
+  String url = String("/macros/s/") + GScriptId + "/exec?rowIndex=" + String(rowIndex) + "&colIndex=" + String(colIndex);
+  // Serial.print("url: ");
+  // Serial.print(url);
+  
+  client->GET(url, host);
+
+  // Leer y procesar la respuesta recibida.
+  String response = client->getResponseBody();
+
+  // Serial.print("Valor en la fila ");
+  // Serial.print(rowIndex);
+  // Serial.print(" y columna ");
+  // Serial.print(colIndex);
+  // Serial.print(": ");
+  // Serial.println(response);
+
+  // Guardar el valor obtenido
+  valorLeido = response;
+}
 
 
 
