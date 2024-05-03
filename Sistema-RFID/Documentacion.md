@@ -92,7 +92,7 @@ En la siguiente imagen se observa en el monitor serial el proceso de conexión a
 
 ![Imagen 0](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Imagenes/imagen_0.png)
 
-![Video 0](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Imagenes/video_0.mp4)
+![Video 0](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Imagenes/gif_0.gif)
 
 
 
