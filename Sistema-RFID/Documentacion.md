@@ -88,7 +88,7 @@ c++: [proyectoRFID.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-
 
 ## Resultados
 
-En la siguiente imagen se observa en el monitor serial el proceso de conexión a la red WiFi, seguido por la interacción con una tarjeta RFID y la comunicación con el servidor de Google Sheets. Como en este ejemplo que unserto una tarjeta que coincide su UID con el de la base de datos, se extrae tanto el nombre como la edad asociados a esa coincidencia.
+En la siguiente imagen se observa en el monitor serial el proceso de conexión a la red WiFi, seguido por la interacción con una tarjeta RFID y la comunicación con el servidor de Google Sheets. Como en este ejemplo que inserto una tarjeta que coincide su UID con el de la base de datos, se extrae tanto el nombre como la edad asociados a esa coincidencia.
 
 ![Imagen 0](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Imagenes/imagen_0.png)
 
