@@ -29,10 +29,11 @@ Se utiliza el módulo NFC para  realizar lecturas y escrituras, ya que es compat
 1. Leer la tarjeta RFID.
 2. Acceder a la hoja de datos de Google.
 3. Comparar el UID  de la tarjeta leida con el almacenado en la base de datos.
-4. Mostrar en la pantalla OLED los datos escenciales si hay coincidencia. De lo contrario solo mostrar el UID de la tarjeta leida.
+
 5. Si coincide, extraer los datos de las celdas que contengas el nombre y edad del animal.
 6. Guardar estos datos en una variable temporal.
 7. Mostrar por pantalla los datos del animal.
+4. Mostrar en la pantalla OLED los datos escenciales si hay coincidencia. De lo contrario solo mostrar el UID de la tarjeta leida.
 
 #### Implementación del módulo RFID
 **Conexion del módulo**
@@ -93,6 +94,8 @@ c++: [pantallaOLED.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-
 **Codigo general del módulo RFID**
 
 c++: [proyectoRFID.ino](https://github.com/GstrLasemUNRC/2024/blob/main/Sistema-RFID/Codigos/proyectoRFID.ino) 
+
+Notas: Faltaria contemplar el hecho de que si NO tiene coincidencia, ademas de mostrar un mensaje, no realice la peticion de las celdas, si no que solo muestre en pantalla el UID leido con un mensaje de que no esta en la base de datos.
 
 ## Resultados
 
