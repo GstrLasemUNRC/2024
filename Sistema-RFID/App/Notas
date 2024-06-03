@@ -1,3 +1,48 @@
 Ejemplo 1: Ejemplo con App Inventor para registrar datos nuevos en google sheet.
 -  PrimeraAPP.aia
 -  PrimeraAPP.apk
+
+#Ejemplo 2: 
+
+Base de datos:
+
+https://docs.google.com/spreadsheets/d/19JUHBb7RM9dRoZM3nBZ9NvQWLBsJAvDaNEHVODSPPRQ/edit#gid=654687078 
+
+Para escribir en google sheets se necesita: 
+- compartir la hoja de cálculo para que cualquier persona con el enlace pueda editar.
+- enlace compartido: https://docs.google.com/spreadsheets/d/19JUHBb7RM9dRoZM3nBZ9NvQWLBsJAvDaNEHVODSPPRQ/edit?usp=sharing
+- crear un formulario vinculada a la hoja de calculo compartida
+- obtener el enlace del formulario previamente rellenado
+- enlace: https://docs.google.com/forms/d/1dZK_mie0FBgtg76dJMWARx_Fi46qXrMJMVnM9C6aRfs/prefill 
+- del enlace previo nos quedamos con la primera parte
+https://docs.google.com/forms/d/1dZK_mie0FBgtg76dJMWARx_Fi46qXrMJMVnM9C6aRfs/
+y lo enlazamos con la aplicacion. 
+- Blocks. 
+- Cuando se pulse el boton "agregar"
+al componente web le colocamos una direccion url https://docs.google.com/forms/d/1dZK_mie0FBgtg76dJMWARx_Fi46qXrMJMVnM9C6aRfs/formResponse
+- Del formulario relleno se van a extraer partes para usar en el codigo de kodular.
+enlace: https://docs.google.com/forms/d/e/1FAIpQLScThujdloBSDnAOoLuzJK8EG9nMtyJ4hgZGYw8TDen7fT6KnA/viewform?usp=pp_url&entry.370091266=AAA&entry.785305710=2&entry.1846942450=BBBB&entry.1886545701=CCC&entry.850074316=DDD&entry.1140669270=FFF&entry.1405259825=GGGG&entry.206294064=HHH&entry.2073656763=III&entry.614195890=JJJ&entry.245298971=KKK&entry.581390370=LLL&entry.1180567510=MMM&entry.447262442=NNN&entry.272180307=OO&entry.1567062536=PPP
+
+viewform?usp=pp_url
+&entry.370091266=AAA
+&entry.785305710=2
+&entry.1846942450=BBBB
+&entry.1886545701=CCC
+&entry.850074316=DDD
+&entry.1140669270=FFF
+&entry.1405259825=GGGG
+&entry.206294064=HHH
+&entry.2073656763=III
+&entry.614195890=JJJ
+&entry.245298971=KKK
+&entry.581390370=LLL
+&entry.1180567510=MMM
+&entry.447262442=NNN
+&entry.272180307=OO
+&entry.1567062536=PPP
+Cada una vinculada a un bloque de text-box
+donde contenga texto se debe reemplaza el & por ?entry.370091266=.
+
+Para leer en google sheets:
+- Se necesita el enlace compartido y modificar la ultima parte, tal como
+https://docs.google.com/spreadsheets/d/19JUHBb7RM9dRoZM3nBZ9NvQWLBsJAvDaNEHVODSPPRQ/expor?format=csv
