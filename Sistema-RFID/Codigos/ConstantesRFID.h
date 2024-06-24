@@ -3,9 +3,6 @@
 const char* ssid     = "nombredelared";
 const char* password = "contraseña";
 
-// Pines del LED
-const int ledPin = 13;
-
 // modulo NFC
 
 #define PN532_IRQ   (2)
@@ -19,10 +16,10 @@ uint8_t uidLength; // Longitud del UID leído
 
 
 // Google Script Deployment ID:
-const char *GScriptId = "AKfycbw1-kF0LZHfgsDMbRvofVdkw2akuNpwD3DwXVGRKpKFXBqnbYCkQFu48HjDpFIOplFCSg"; // v2: AKfycbyDBhZ5k8jpslE58SScIxL-gU20A18lDLkyJKnQT7MKRLfXSH40ranEPfTZXVGIeFbsvA"
+const char *GScriptId = "AKfycbwklDiRjiD4TtwZpoXpT1uNreuo9u5Tkq48w536LjiPOmEEz60xfOu3a1fhb51yFcks3g"; // v2: AKfycbyDBhZ5k8jpslE58SScIxL-gU20A18lDLkyJKnQT7MKRLfXSH40ranEPfTZXVGIeFbsvA"
 
 // Enter command (insert_row or append_row) and your Google Sheets sheet name (default is Sheet1):
-const char* payload_base = "{\"command\": \"insert_row\", \"datosPerros\": \"Hoja1\", \"UIDtag\", \"IDdog\", \"Nombre\": ";
+const char* payload_base = "{\"command\": \"insert_row\", \"datosPerros\": \"Hoja1\", \"Marca temporal\", \"UIDtag\", \"IDdog\", \"Nombre\": ";
 char payload[256];
 
 // Google Sheets setup (do not edit)
@@ -37,6 +34,8 @@ String uidString = "";
 String response = "";
 int row = 0;
 int fila = 0;
-int Nombredog = 3;
-int Edaddog = 4;
+int dogID = 3;
+int Nombredog = 4;
+int Edaddog = 5;
 String valorLeido = "";
+String valorLeido2 = "";
