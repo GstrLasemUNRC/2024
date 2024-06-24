@@ -69,11 +69,10 @@ Pasos  para integrar ESP8266 y Google Spreadsheets:
 4. Copiar el código leerHoja.gs y pegarlo en el editor de scripts: Código.gs.
 5. Establecer permisos y accesos sobre el script. Ingresar a Implementar → Nueva implementación → Aplicación Web. Debemos elegir que se ejecute como nuestro usuario y que cualquier persona incluso los anónimos tengan acceso a la aplicación; luego confirmamos las opciones que se nos presenta.
 
->Id de implementación: AKfycbw1-kF0LZHfgsDMbRvofVdkw2akuNpwD3DwXVGRKpKFXBqnbYCkQFu48HjDpFIOplFCSg
+>Id de implementación: AKfycbwklDiRjiD4TtwZpoXpT1uNreuo9u5Tkq48w536LjiPOmEEz60xfOu3a1fhb51yFcks3g
 
 >Aplicación web URL
-https://script.google.com/macros/s/AKfycbw1-kF0LZHfgsDMbRvofVdkw2akuNpwD3DwXVGRKpKFXBqnbYCkQFu48HjDpFIOplFCSg/exec 
-
+https://script.google.com/macros/s/AKfycbwklDiRjiD4TtwZpoXpT1uNreuo9u5Tkq48w536LjiPOmEEz60xfOu3a1fhb51yFcks3g/exec
 
 6. en el variable script .ino reemplazamos XXXXXXXXXXXXXXXXXXXXX por la correspondiente que nos otorgo Google Script.
 
