@@ -2,14 +2,16 @@
 #define FUNCIONESRFID_H
 
 
-// Declaración de las funciones
+// Declaración de funciones
+void config_oled();
 void config_wifi();
 void config_google();
 void config_moduloNFC();
 String leerUIDTarjetaRFID();
 void leer_columnaUIDtag(String uidString);
-void leer_sheet(int rowIndex, int colIndex) ;
-
+void leer_sheet(int rowIndex, int colIndex);
+void displayoled(String mensaje, String mensaje2);
+void pantalla(String uid, String id, String nombre);
 
 
 // Funcion 1: Configuracion de la conexion WiFi
@@ -19,8 +21,7 @@ void config_wifi(){
   Serial.println("Conectando WiFi");
   while(WiFi.status() != WL_CONNECTED){
     delay(500);
-    Serial.print(".");
-    
+    Serial.print(".");  
   }
   Serial.println('\n');
   Serial.println("Conexion WiFi establecida!");
@@ -32,20 +33,16 @@ void config_wifi(){
 // Inicializa el módulo PN532 para la interfaz I2C
 Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 void config_moduloNFC(){
- 
   nfc.begin();
-
   uint32_t versiondata = nfc.getFirmwareVersion();
+ 
   if (!versiondata) {
     Serial.print("No se encontró la placa PN53x");
     while (1); // Detener si no se encuentra el módulo
-  }
-  
+  }  
   // Configura el PN532 para leer tarjetas RFID con un rango de 2 cm (nfc.DIRECTIVE_MAX_RESPONSE_TIME_MS)
   nfc.SAMConfig();
-  
   Serial.println("Esperando una tarjeta RFID...");
-
 }
 
 // Funcion 3: media
@@ -61,6 +58,7 @@ String leerUIDTarjetaRFID(){
   uidLength = sizeof(uid); // Inicializa la longitud del UID
   
   // Espera a que se detecte una tarjeta y actualiza uidLength con la longitud real del UID
+  displayoled("Esperando","Tag....");
   success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
   // Imprimir y almacenar los primeros 4 bytes del UID
   if (success) {
@@ -77,7 +75,7 @@ String leerUIDTarjetaRFID(){
       uidString += "";
     }
     Serial.println("");
-    delay(500); // Espera medio segundo antes de leer la próxima tarjeta
+    delay(100); // Espera medio segundo antes de leer la próxima tarjeta
   }
 
   return uidString; // Devuelve el String con el UID leído
@@ -118,9 +116,12 @@ void config_google(){
 
 // Funcion 6: leer la hoja de datos y buscar coincidencia en la columna UIDtag. Solicitud POST.
 void leer_columnaUIDtag(String uidString){
-
+  Serial.print("valor de uidStrig en funcion leer_columna: ");
+  Serial.println(uidString);
   // Realizar una solicitud HTTP POST al script de Google Apps Script.
   String url = String("/macros/s/") + GScriptId + "/exec"; 
+  Serial.print("url en funcion leer_columna: ");
+  Serial.println(url);
 
   // Crear el cuerpo de la solicitud POST
   String postData = "uid=" + uidString;
@@ -130,8 +131,8 @@ void leer_columnaUIDtag(String uidString){
 
   // Leer y procesar la respuesta recibida.
   String response = client->getResponseBody();
-  // Serial.println("Respuesta del servidor: ");
-  // Serial.println(response);
+  Serial.println("Respuesta del servidor: ");
+  Serial.println(response);
 
   if (response.indexOf(uidString) != -1) {
     Serial.println("El string coincide con los datos de la columna 'UIDtag'");
@@ -155,6 +156,7 @@ void leer_columnaUIDtag(String uidString){
 
   } else {
     Serial.println("El string no coincide con los datos de la columna 'UIDtag'");
+    fila= -1;
   }
 
   uidString = ""; 
@@ -167,12 +169,9 @@ void leer_sheet(int rowIndex, int colIndex) {
   String url = String("/macros/s/") + GScriptId + "/exec?rowIndex=" + String(rowIndex) + "&colIndex=" + String(colIndex);
   // Serial.print("url: ");
   // Serial.print(url);
-  
   client->GET(url, host);
-
   // Leer y procesar la respuesta recibida.
   String response = client->getResponseBody();
-
   // Serial.print("Valor en la fila ");
   // Serial.print(rowIndex);
   // Serial.print(" y columna ");
@@ -184,6 +183,55 @@ void leer_sheet(int rowIndex, int colIndex) {
   valorLeido = response;
 }
 
+// Funcion 8: Configuracion de la conexion Oled.
+void config_oled(){
+  Serial.println("OLED FeatherWing test");
+  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C); // Address 0x3C for 128x32
+  Serial.println("OLED begun");
+ 
+  display.display();
+  delay(1000);
+  // Clear the buffer.
+  display.clearDisplay();
+  display.display();
+  Serial.println("IO test");
+  display.setCursor(0,0);
+  display.display(); 
+}
 
+
+// Funcion 9: muestra el resultado de la coincidencia del UIDtag.
+void pantalla(String uid, String id, String nombre) {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(35, 16);
+  display.println("UIDtag:");
+  display.setCursor(35, 26);
+  display.println(uid);
+  display.setCursor(35, 36);
+  display.println("IDdog:");
+  display.setCursor(75, 36);
+  display.println(id);
+  display.setCursor(35, 46);
+  display.println("Nombre:");
+  display.setCursor(35, 56);
+  display.println(nombre);
+  display.display();
+  
+}
+
+// Funcion 9: visualiza mensajes en la pantalla oled.
+void displayoled(String mensaje, String mensaje2) {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(36, 36);
+  display.println(mensaje);
+  display.setCursor(36, 46);
+  display.println(mensaje2);
+  display.display();
+}
 
 #endif 
